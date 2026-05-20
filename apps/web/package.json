@@ -10,20 +10,38 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write \"**/*.{ts,tsx,json,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:reset": "prisma migrate reset --force"
   },
   "prettier": "@workspace/prettier-config",
   "dependencies": {
+    "@prisma/client": "^6.4.0",
+    "@radix-ui/react-slot": "^1.1.2",
     "@workspace/ui": "workspace:*",
+    "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "jose": "^5.9.6",
     "lucide-react": "^0.475.0",
     "next": "16.0.11",
     "next-devtools-mcp": "^0.2.6",
     "next-themes": "^0.4.6",
+    "radix-ui": "^1.4.3",
     "react": "19.2.6",
-    "react-dom": "19.2.6"
+    "react-dom": "19.2.6",
+    "sonner": "^2.0.7",
+    "tailwind-merge": "^3.0.2",
+    "tw-animate-css": "^1.2.9"
   },
   "devDependencies": {
     "@parcel/watcher": "^2.5.6",
+    "@tailwindcss/postcss": "^4.0.17",
+    "@types/bcryptjs": "^2.4.6",
     "@types/minimatch": "^6.0.0",
     "@types/node": "^20.19.41",
     "@types/react": "19.2.15",
@@ -32,6 +50,9 @@
     "@workspace/prettier-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "prettier": "^3.6.2",
+    "prisma": "^6.4.0",
+    "tailwindcss": "^4.0.17",
+    "tsx": "^4.19.2",
     "typescript": "^5.9.3"
   },
   "pnpm": {
@@ -39,5 +60,8 @@
       "@types/react": "19.2.15",
       "@types/react-dom": "19.2.3"
     }
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }

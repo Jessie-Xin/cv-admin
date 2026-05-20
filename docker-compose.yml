@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cv-admin-postgres
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: cv_admin
+      POSTGRES_PASSWORD: cv_admin
+      POSTGRES_DB: cv_admin
+    volumes:
+      - cv-admin-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cv_admin"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  cv-admin-pgdata:
