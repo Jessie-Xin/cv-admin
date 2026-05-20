@@ -51,33 +51,6 @@ pnpm typecheck                  # 运行 TypeScript 编译器（web 应用）
 pnpm format                     # 使用 Prettier 格式化所有 .ts/.tsx/.md 文件
 ```
 
-### GraphQL 代码生成
-
-`web` 应用使用 **Genql** 进行类型安全的 GraphQL 查询（无需手写查询字符串）：
-
-```bash
-# 从 GraphQL 端点生成 Genql 客户端
-cd apps/web
-pnpm genql                      # 生成到 src/genql/
-
-# 需要：GraphQL 服务器运行在 http://localhost:3002/graphql
-```
-
-**Genql 使用模式**（参见 `src/lib/genql-client.ts`）：
-
-```typescript
-import { client } from "@/lib/genql-client";
-
-const result = await client.query({
-  publishedPosts: {
-    edges: { node: { id: true, title: true } },
-    totalCount: true,
-  },
-});
-```
-
-**可复用的查询配置**：定义在 `src/lib/genql-helpers.ts` 中（例如 `queryConfigs.userBasic`、`queryConfigs.postNode`）
-
 ### 添加 shadcn/ui 组件
 
 ```bash
@@ -117,30 +90,6 @@ pnpm dlx shadcn@latest add button -c apps/web
 transpilePackages: ["@workspace/ui"]; // monorepo UI 包所需
 ```
 
-## GraphQL 架构
-
-### Schema 和类型安全
-
-- **GraphQL LSP**：已启用 `@0no-co/graphqlsp` 插件用于 VSCode IntelliSense
-- **Schema 位置**：`apps/web/schema.graphql`
-- **生成的类型**：`apps/web/src/genql/`（自动生成，请勿手动编辑）
-
-### 客户端配置
-
-**Genql 客户端**（`src/lib/genql-client.ts`）：
-
-- 从 localStorage 自动注入认证 token（`Bearer {token}`）
-- 启用批量请求（最多 10 个查询，20ms 间隔）
-- 默认端点：`http://localhost:3002/graphql`
-
-### 认证辅助函数
-
-```typescript
-// src/lib/genql-client.ts 导出：
-saveAuthToken(accessToken, refreshToken); // 存储 tokens
-clearAuthToken(); // 清除 tokens
-```
-
 ## 构建和流水线
 
 **Turborepo 任务**（turbo.json）：
@@ -171,8 +120,6 @@ web 应用已启用 MCP 集成（`.mcp.json`）：
 ## 重要说明
 
 1. **始终通过 CLI 添加 shadcn 组件**（不要手动创建），以确保正确放置在 `packages/ui` 中
-2. **GraphQL schema 更改后需要重新生成 Genql**
-3. **工作区依赖使用 `workspace:*` 语法**（而非特定版本）
-4. **开发时 GraphQL 端点必须运行**在 3002 端口
-5. **路径别名遵循 monorepo 结构** - 使用 `@workspace/ui` 访问共享组件，使用 `@/*` 访问应用本地文件
-6. **Turbo 缓存** - 如需绕过缓存，使用 `--force` 标志：`pnpm build --force`
+2. **工作区依赖使用 `workspace:*` 语法**（而非特定版本）
+3. **路径别名遵循 monorepo 结构** - 使用 `@workspace/ui` 访问共享组件，使用 `@/*` 访问应用本地文件
+4. **Turbo 缓存** - 如需绕过缓存，使用 `--force` 标志：`pnpm build --force`
