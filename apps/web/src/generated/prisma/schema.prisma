@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- 管理员账号（单人） ----------
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// ---------- 个人信息 ----------
+model Profile {
+  id        String   @id @default(cuid())
+  name      String
+  jobTitle  String
+  subtitle  String?
+  email     String
+  phone     String?
+  city      String?
+  github    String?
+  bio       String?
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------- 项目管理 ----------
+enum ProjectStatus {
+  ACTIVE
+  DONE
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  name        String
+  description String
+  role        String
+  startDate   DateTime
+  endDate     DateTime?
+  status      ProjectStatus @default(ACTIVE)
+  accentColor String?       @db.VarChar(16)
+  tags        String[]      @default([])
+  milestones  Milestone[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([status])
+  @@index([startDate])
+}
+
+// ---------- 项目时间线 ----------
+model Milestone {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  occurredAt  DateTime
+  projectId   String?
+  project     Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([occurredAt])
+}
+
+// ---------- 个人历程 ----------
+enum ExperienceType {
+  EDUCATION
+  WORK
+  CERTIFICATION
+}
+
+model Experience {
+  id           String         @id @default(cuid())
+  title        String
+  organization String
+  description  String
+  type         ExperienceType
+  startDate    DateTime
+  endDate      DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@index([type])
+  @@index([startDate])
+}
+
+// ---------- 技能标签 ----------
+model SkillCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  color     String?  @db.VarChar(16)
+  order     Int      @default(0)
+  skills    Skill[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Skill {
+  id         String        @id @default(cuid())
+  name       String
+  categoryId String
+  category   SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  order      Int           @default(0)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@unique([categoryId, name])
+}
+
+// ---------- 系统设置 ----------
+enum ThemeMode {
+  LIGHT
+  DARK
+}
+
+enum ExportFormat {
+  PDF
+  HTML
+  MARKDOWN
+}
+
+model Setting {
+  id                  String       @id @default("default")
+  themeMode           ThemeMode    @default(LIGHT)
+  accentColor         String       @default("#3D8A5A") @db.VarChar(16)
+  defaultExportFormat ExportFormat @default(PDF)
+  publicShareEnabled  Boolean      @default(true)
+  updatedAt           DateTime     @updatedAt
+}
