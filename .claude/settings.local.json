@@ -1,0 +1,12 @@
+{
+  "enabledMcpjsonServers": [
+    "shadcn",
+    "MCP_DOCKER",
+    "next-devtools"
+  ],
+  "permissions": {
+    "allow": [
+      "Bash(pnpm typecheck *)"
+    ]
+  }
+}
