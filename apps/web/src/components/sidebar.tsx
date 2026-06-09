@@ -10,6 +10,7 @@ import {
   BarChart3,
   Star,
   Settings,
+  Link2,
   LogOut,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -22,6 +23,7 @@ const navItems = [
   { href: "/timeline", label: "项目时间线", icon: Clock },
   { href: "/experience", label: "个人历程", icon: BarChart3 },
   { href: "/skills", label: "技能标签", icon: Star },
+  { href: "/shares", label: "分享链接", icon: Link2 },
   { href: "/settings", label: "系统设置", icon: Settings },
 ];
 

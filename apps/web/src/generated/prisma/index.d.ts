@@ -53,6 +53,11 @@ export type Skill = $Result.DefaultSelection<Prisma.$SkillPayload>
  * 
  */
 export type Setting = $Result.DefaultSelection<Prisma.$SettingPayload>
+/**
+ * Model ShareToken
+ * 
+ */
+export type ShareToken = $Result.DefaultSelection<Prisma.$ShareTokenPayload>
 
 /**
  * Enums
@@ -306,6 +311,16 @@ export class PrismaClient<
     * ```
     */
   get setting(): Prisma.SettingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.shareToken`: Exposes CRUD operations for the **ShareToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ShareTokens
+    * const shareTokens = await prisma.shareToken.findMany()
+    * ```
+    */
+  get shareToken(): Prisma.ShareTokenDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -754,7 +769,8 @@ export namespace Prisma {
     Experience: 'Experience',
     SkillCategory: 'SkillCategory',
     Skill: 'Skill',
-    Setting: 'Setting'
+    Setting: 'Setting',
+    ShareToken: 'ShareToken'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -773,7 +789,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "adminUser" | "profile" | "project" | "milestone" | "experience" | "skillCategory" | "skill" | "setting"
+      modelProps: "adminUser" | "profile" | "project" | "milestone" | "experience" | "skillCategory" | "skill" | "setting" | "shareToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1369,6 +1385,80 @@ export namespace Prisma {
           }
         }
       }
+      ShareToken: {
+        payload: Prisma.$ShareTokenPayload<ExtArgs>
+        fields: Prisma.ShareTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ShareTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ShareTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.ShareTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ShareTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload>
+          }
+          findMany: {
+            args: Prisma.ShareTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload>[]
+          }
+          create: {
+            args: Prisma.ShareTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload>
+          }
+          createMany: {
+            args: Prisma.ShareTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ShareTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.ShareTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload>
+          }
+          update: {
+            args: Prisma.ShareTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.ShareTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ShareTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ShareTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.ShareTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShareTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.ShareTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateShareToken>
+          }
+          groupBy: {
+            args: Prisma.ShareTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ShareTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ShareTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<ShareTokenCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1473,6 +1563,7 @@ export namespace Prisma {
     skillCategory?: SkillCategoryOmit
     skill?: SkillOmit
     setting?: SettingOmit
+    shareToken?: ShareTokenOmit
   }
 
   /* Types for Logging */
@@ -10233,6 +10324,1027 @@ export namespace Prisma {
 
 
   /**
+   * Model ShareToken
+   */
+
+  export type AggregateShareToken = {
+    _count: ShareTokenCountAggregateOutputType | null
+    _min: ShareTokenMinAggregateOutputType | null
+    _max: ShareTokenMaxAggregateOutputType | null
+  }
+
+  export type ShareTokenMinAggregateOutputType = {
+    id: string | null
+    token: string | null
+    label: string | null
+    expiresAt: Date | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ShareTokenMaxAggregateOutputType = {
+    id: string | null
+    token: string | null
+    label: string | null
+    expiresAt: Date | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ShareTokenCountAggregateOutputType = {
+    id: number
+    token: number
+    label: number
+    expiresAt: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ShareTokenMinAggregateInputType = {
+    id?: true
+    token?: true
+    label?: true
+    expiresAt?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ShareTokenMaxAggregateInputType = {
+    id?: true
+    token?: true
+    label?: true
+    expiresAt?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ShareTokenCountAggregateInputType = {
+    id?: true
+    token?: true
+    label?: true
+    expiresAt?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ShareTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ShareToken to aggregate.
+     */
+    where?: ShareTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ShareTokens to fetch.
+     */
+    orderBy?: ShareTokenOrderByWithRelationInput | ShareTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ShareTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ShareTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ShareTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ShareTokens
+    **/
+    _count?: true | ShareTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ShareTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ShareTokenMaxAggregateInputType
+  }
+
+  export type GetShareTokenAggregateType<T extends ShareTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateShareToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateShareToken[P]>
+      : GetScalarType<T[P], AggregateShareToken[P]>
+  }
+
+
+
+
+  export type ShareTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShareTokenWhereInput
+    orderBy?: ShareTokenOrderByWithAggregationInput | ShareTokenOrderByWithAggregationInput[]
+    by: ShareTokenScalarFieldEnum[] | ShareTokenScalarFieldEnum
+    having?: ShareTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ShareTokenCountAggregateInputType | true
+    _min?: ShareTokenMinAggregateInputType
+    _max?: ShareTokenMaxAggregateInputType
+  }
+
+  export type ShareTokenGroupByOutputType = {
+    id: string
+    token: string
+    label: string | null
+    expiresAt: Date
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: ShareTokenCountAggregateOutputType | null
+    _min: ShareTokenMinAggregateOutputType | null
+    _max: ShareTokenMaxAggregateOutputType | null
+  }
+
+  type GetShareTokenGroupByPayload<T extends ShareTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ShareTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ShareTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ShareTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], ShareTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ShareTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    label?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["shareToken"]>
+
+  export type ShareTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    label?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["shareToken"]>
+
+  export type ShareTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    token?: boolean
+    label?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["shareToken"]>
+
+  export type ShareTokenSelectScalar = {
+    id?: boolean
+    token?: boolean
+    label?: boolean
+    expiresAt?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ShareTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "token" | "label" | "expiresAt" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["shareToken"]>
+
+  export type $ShareTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ShareToken"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      token: string
+      label: string | null
+      expiresAt: Date
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["shareToken"]>
+    composites: {}
+  }
+
+  type ShareTokenGetPayload<S extends boolean | null | undefined | ShareTokenDefaultArgs> = $Result.GetResult<Prisma.$ShareTokenPayload, S>
+
+  type ShareTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ShareTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ShareTokenCountAggregateInputType | true
+    }
+
+  export interface ShareTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ShareToken'], meta: { name: 'ShareToken' } }
+    /**
+     * Find zero or one ShareToken that matches the filter.
+     * @param {ShareTokenFindUniqueArgs} args - Arguments to find a ShareToken
+     * @example
+     * // Get one ShareToken
+     * const shareToken = await prisma.shareToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ShareTokenFindUniqueArgs>(args: SelectSubset<T, ShareTokenFindUniqueArgs<ExtArgs>>): Prisma__ShareTokenClient<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ShareToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ShareTokenFindUniqueOrThrowArgs} args - Arguments to find a ShareToken
+     * @example
+     * // Get one ShareToken
+     * const shareToken = await prisma.shareToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ShareTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, ShareTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ShareTokenClient<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ShareToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShareTokenFindFirstArgs} args - Arguments to find a ShareToken
+     * @example
+     * // Get one ShareToken
+     * const shareToken = await prisma.shareToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ShareTokenFindFirstArgs>(args?: SelectSubset<T, ShareTokenFindFirstArgs<ExtArgs>>): Prisma__ShareTokenClient<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ShareToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShareTokenFindFirstOrThrowArgs} args - Arguments to find a ShareToken
+     * @example
+     * // Get one ShareToken
+     * const shareToken = await prisma.shareToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ShareTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, ShareTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__ShareTokenClient<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ShareTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShareTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ShareTokens
+     * const shareTokens = await prisma.shareToken.findMany()
+     * 
+     * // Get first 10 ShareTokens
+     * const shareTokens = await prisma.shareToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const shareTokenWithIdOnly = await prisma.shareToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ShareTokenFindManyArgs>(args?: SelectSubset<T, ShareTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ShareToken.
+     * @param {ShareTokenCreateArgs} args - Arguments to create a ShareToken.
+     * @example
+     * // Create one ShareToken
+     * const ShareToken = await prisma.shareToken.create({
+     *   data: {
+     *     // ... data to create a ShareToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends ShareTokenCreateArgs>(args: SelectSubset<T, ShareTokenCreateArgs<ExtArgs>>): Prisma__ShareTokenClient<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ShareTokens.
+     * @param {ShareTokenCreateManyArgs} args - Arguments to create many ShareTokens.
+     * @example
+     * // Create many ShareTokens
+     * const shareToken = await prisma.shareToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ShareTokenCreateManyArgs>(args?: SelectSubset<T, ShareTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ShareTokens and returns the data saved in the database.
+     * @param {ShareTokenCreateManyAndReturnArgs} args - Arguments to create many ShareTokens.
+     * @example
+     * // Create many ShareTokens
+     * const shareToken = await prisma.shareToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ShareTokens and only return the `id`
+     * const shareTokenWithIdOnly = await prisma.shareToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ShareTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, ShareTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ShareToken.
+     * @param {ShareTokenDeleteArgs} args - Arguments to delete one ShareToken.
+     * @example
+     * // Delete one ShareToken
+     * const ShareToken = await prisma.shareToken.delete({
+     *   where: {
+     *     // ... filter to delete one ShareToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ShareTokenDeleteArgs>(args: SelectSubset<T, ShareTokenDeleteArgs<ExtArgs>>): Prisma__ShareTokenClient<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ShareToken.
+     * @param {ShareTokenUpdateArgs} args - Arguments to update one ShareToken.
+     * @example
+     * // Update one ShareToken
+     * const shareToken = await prisma.shareToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ShareTokenUpdateArgs>(args: SelectSubset<T, ShareTokenUpdateArgs<ExtArgs>>): Prisma__ShareTokenClient<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ShareTokens.
+     * @param {ShareTokenDeleteManyArgs} args - Arguments to filter ShareTokens to delete.
+     * @example
+     * // Delete a few ShareTokens
+     * const { count } = await prisma.shareToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ShareTokenDeleteManyArgs>(args?: SelectSubset<T, ShareTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ShareTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShareTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ShareTokens
+     * const shareToken = await prisma.shareToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ShareTokenUpdateManyArgs>(args: SelectSubset<T, ShareTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ShareTokens and returns the data updated in the database.
+     * @param {ShareTokenUpdateManyAndReturnArgs} args - Arguments to update many ShareTokens.
+     * @example
+     * // Update many ShareTokens
+     * const shareToken = await prisma.shareToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ShareTokens and only return the `id`
+     * const shareTokenWithIdOnly = await prisma.shareToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ShareTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, ShareTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ShareToken.
+     * @param {ShareTokenUpsertArgs} args - Arguments to update or create a ShareToken.
+     * @example
+     * // Update or create a ShareToken
+     * const shareToken = await prisma.shareToken.upsert({
+     *   create: {
+     *     // ... data to create a ShareToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ShareToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ShareTokenUpsertArgs>(args: SelectSubset<T, ShareTokenUpsertArgs<ExtArgs>>): Prisma__ShareTokenClient<$Result.GetResult<Prisma.$ShareTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ShareTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShareTokenCountArgs} args - Arguments to filter ShareTokens to count.
+     * @example
+     * // Count the number of ShareTokens
+     * const count = await prisma.shareToken.count({
+     *   where: {
+     *     // ... the filter for the ShareTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends ShareTokenCountArgs>(
+      args?: Subset<T, ShareTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ShareTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ShareToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShareTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ShareTokenAggregateArgs>(args: Subset<T, ShareTokenAggregateArgs>): Prisma.PrismaPromise<GetShareTokenAggregateType<T>>
+
+    /**
+     * Group by ShareToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShareTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ShareTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ShareTokenGroupByArgs['orderBy'] }
+        : { orderBy?: ShareTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ShareTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetShareTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ShareToken model
+   */
+  readonly fields: ShareTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ShareToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ShareTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ShareToken model
+   */
+  interface ShareTokenFieldRefs {
+    readonly id: FieldRef<"ShareToken", 'String'>
+    readonly token: FieldRef<"ShareToken", 'String'>
+    readonly label: FieldRef<"ShareToken", 'String'>
+    readonly expiresAt: FieldRef<"ShareToken", 'DateTime'>
+    readonly isActive: FieldRef<"ShareToken", 'Boolean'>
+    readonly createdAt: FieldRef<"ShareToken", 'DateTime'>
+    readonly updatedAt: FieldRef<"ShareToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ShareToken findUnique
+   */
+  export type ShareTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which ShareToken to fetch.
+     */
+    where: ShareTokenWhereUniqueInput
+  }
+
+  /**
+   * ShareToken findUniqueOrThrow
+   */
+  export type ShareTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which ShareToken to fetch.
+     */
+    where: ShareTokenWhereUniqueInput
+  }
+
+  /**
+   * ShareToken findFirst
+   */
+  export type ShareTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which ShareToken to fetch.
+     */
+    where?: ShareTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ShareTokens to fetch.
+     */
+    orderBy?: ShareTokenOrderByWithRelationInput | ShareTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ShareTokens.
+     */
+    cursor?: ShareTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ShareTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ShareTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ShareTokens.
+     */
+    distinct?: ShareTokenScalarFieldEnum | ShareTokenScalarFieldEnum[]
+  }
+
+  /**
+   * ShareToken findFirstOrThrow
+   */
+  export type ShareTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which ShareToken to fetch.
+     */
+    where?: ShareTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ShareTokens to fetch.
+     */
+    orderBy?: ShareTokenOrderByWithRelationInput | ShareTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ShareTokens.
+     */
+    cursor?: ShareTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ShareTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ShareTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ShareTokens.
+     */
+    distinct?: ShareTokenScalarFieldEnum | ShareTokenScalarFieldEnum[]
+  }
+
+  /**
+   * ShareToken findMany
+   */
+  export type ShareTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * Filter, which ShareTokens to fetch.
+     */
+    where?: ShareTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ShareTokens to fetch.
+     */
+    orderBy?: ShareTokenOrderByWithRelationInput | ShareTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ShareTokens.
+     */
+    cursor?: ShareTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ShareTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ShareTokens.
+     */
+    skip?: number
+    distinct?: ShareTokenScalarFieldEnum | ShareTokenScalarFieldEnum[]
+  }
+
+  /**
+   * ShareToken create
+   */
+  export type ShareTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * The data needed to create a ShareToken.
+     */
+    data: XOR<ShareTokenCreateInput, ShareTokenUncheckedCreateInput>
+  }
+
+  /**
+   * ShareToken createMany
+   */
+  export type ShareTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ShareTokens.
+     */
+    data: ShareTokenCreateManyInput | ShareTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ShareToken createManyAndReturn
+   */
+  export type ShareTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many ShareTokens.
+     */
+    data: ShareTokenCreateManyInput | ShareTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ShareToken update
+   */
+  export type ShareTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * The data needed to update a ShareToken.
+     */
+    data: XOR<ShareTokenUpdateInput, ShareTokenUncheckedUpdateInput>
+    /**
+     * Choose, which ShareToken to update.
+     */
+    where: ShareTokenWhereUniqueInput
+  }
+
+  /**
+   * ShareToken updateMany
+   */
+  export type ShareTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ShareTokens.
+     */
+    data: XOR<ShareTokenUpdateManyMutationInput, ShareTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which ShareTokens to update
+     */
+    where?: ShareTokenWhereInput
+    /**
+     * Limit how many ShareTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ShareToken updateManyAndReturn
+   */
+  export type ShareTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update ShareTokens.
+     */
+    data: XOR<ShareTokenUpdateManyMutationInput, ShareTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which ShareTokens to update
+     */
+    where?: ShareTokenWhereInput
+    /**
+     * Limit how many ShareTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ShareToken upsert
+   */
+  export type ShareTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * The filter to search for the ShareToken to update in case it exists.
+     */
+    where: ShareTokenWhereUniqueInput
+    /**
+     * In case the ShareToken found by the `where` argument doesn't exist, create a new ShareToken with this data.
+     */
+    create: XOR<ShareTokenCreateInput, ShareTokenUncheckedCreateInput>
+    /**
+     * In case the ShareToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ShareTokenUpdateInput, ShareTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * ShareToken delete
+   */
+  export type ShareTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+    /**
+     * Filter which ShareToken to delete.
+     */
+    where: ShareTokenWhereUniqueInput
+  }
+
+  /**
+   * ShareToken deleteMany
+   */
+  export type ShareTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ShareTokens to delete
+     */
+    where?: ShareTokenWhereInput
+    /**
+     * Limit how many ShareTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ShareToken without action
+   */
+  export type ShareTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShareToken
+     */
+    select?: ShareTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ShareToken
+     */
+    omit?: ShareTokenOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10355,6 +11467,19 @@ export namespace Prisma {
   };
 
   export type SettingScalarFieldEnum = (typeof SettingScalarFieldEnum)[keyof typeof SettingScalarFieldEnum]
+
+
+  export const ShareTokenScalarFieldEnum: {
+    id: 'id',
+    token: 'token',
+    label: 'label',
+    expiresAt: 'expiresAt',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ShareTokenScalarFieldEnum = (typeof ShareTokenScalarFieldEnum)[keyof typeof ShareTokenScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -11056,6 +12181,68 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Setting"> | Date | string
   }
 
+  export type ShareTokenWhereInput = {
+    AND?: ShareTokenWhereInput | ShareTokenWhereInput[]
+    OR?: ShareTokenWhereInput[]
+    NOT?: ShareTokenWhereInput | ShareTokenWhereInput[]
+    id?: StringFilter<"ShareToken"> | string
+    token?: StringFilter<"ShareToken"> | string
+    label?: StringNullableFilter<"ShareToken"> | string | null
+    expiresAt?: DateTimeFilter<"ShareToken"> | Date | string
+    isActive?: BoolFilter<"ShareToken"> | boolean
+    createdAt?: DateTimeFilter<"ShareToken"> | Date | string
+    updatedAt?: DateTimeFilter<"ShareToken"> | Date | string
+  }
+
+  export type ShareTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    label?: SortOrderInput | SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ShareTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    token?: string
+    AND?: ShareTokenWhereInput | ShareTokenWhereInput[]
+    OR?: ShareTokenWhereInput[]
+    NOT?: ShareTokenWhereInput | ShareTokenWhereInput[]
+    label?: StringNullableFilter<"ShareToken"> | string | null
+    expiresAt?: DateTimeFilter<"ShareToken"> | Date | string
+    isActive?: BoolFilter<"ShareToken"> | boolean
+    createdAt?: DateTimeFilter<"ShareToken"> | Date | string
+    updatedAt?: DateTimeFilter<"ShareToken"> | Date | string
+  }, "id" | "token">
+
+  export type ShareTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    token?: SortOrder
+    label?: SortOrderInput | SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ShareTokenCountOrderByAggregateInput
+    _max?: ShareTokenMaxOrderByAggregateInput
+    _min?: ShareTokenMinOrderByAggregateInput
+  }
+
+  export type ShareTokenScalarWhereWithAggregatesInput = {
+    AND?: ShareTokenScalarWhereWithAggregatesInput | ShareTokenScalarWhereWithAggregatesInput[]
+    OR?: ShareTokenScalarWhereWithAggregatesInput[]
+    NOT?: ShareTokenScalarWhereWithAggregatesInput | ShareTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ShareToken"> | string
+    token?: StringWithAggregatesFilter<"ShareToken"> | string
+    label?: StringNullableWithAggregatesFilter<"ShareToken"> | string | null
+    expiresAt?: DateTimeWithAggregatesFilter<"ShareToken"> | Date | string
+    isActive?: BoolWithAggregatesFilter<"ShareToken"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"ShareToken"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ShareToken"> | Date | string
+  }
+
   export type AdminUserCreateInput = {
     id?: string
     email: string
@@ -11671,6 +12858,76 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ShareTokenCreateInput = {
+    id?: string
+    token?: string
+    label?: string | null
+    expiresAt: Date | string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ShareTokenUncheckedCreateInput = {
+    id?: string
+    token?: string
+    label?: string | null
+    expiresAt: Date | string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ShareTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ShareTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ShareTokenCreateManyInput = {
+    id?: string
+    token?: string
+    label?: string | null
+    expiresAt: Date | string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ShareTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ShareTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12216,6 +13473,36 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type ShareTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    label?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ShareTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    label?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ShareTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    token?: SortOrder
+    label?: SortOrder
+    expiresAt?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {

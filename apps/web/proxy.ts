@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifySession, SESSION_COOKIE } from "@/lib/auth";
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const token = req.cookies.get(SESSION_COOKIE)?.value;
   const session = token ? await verifySession(token) : null;
   const { pathname } = req.nextUrl;
@@ -22,8 +22,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // 保护除以下之外的所有路由：
-  // - /api/auth/* (登录/登出接口本身)
-  // - Next 静态资源 / favicon
   matcher: ["/((?!api/auth|_next/static|_next/image|favicon.ico).*)"],
 };

@@ -137,3 +137,18 @@ model Setting {
   publicShareEnabled  Boolean      @default(true)
   updatedAt           DateTime     @updatedAt
 }
+
+// ---------- 限时分享链接 ----------
+model ShareToken {
+  id        String   @id @default(cuid())
+  token     String   @unique @default(uuid())
+  label     String?
+  expiresAt DateTime
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([token])
+  @@index([expiresAt])
+  @@index([isActive])
+}

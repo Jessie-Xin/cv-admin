@@ -12,4 +12,5 @@ export {
   type ThemeMode,
   type ExportFormat,
   type AdminUser,
+  type ShareToken,
 } from "./db";

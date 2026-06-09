@@ -208,6 +208,16 @@ exports.Prisma.SettingScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ShareTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  label: 'label',
+  expiresAt: 'expiresAt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -252,7 +262,8 @@ exports.Prisma.ModelName = {
   Experience: 'Experience',
   SkillCategory: 'SkillCategory',
   Skill: 'Skill',
-  Setting: 'Setting'
+  Setting: 'Setting',
+  ShareToken: 'ShareToken'
 };
 
 /**
