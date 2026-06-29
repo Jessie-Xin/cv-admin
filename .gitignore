@@ -35,7 +35,6 @@ npm-debug.log*
 .DS_Store
 *.pem
 # next-agents-md
-.next-docs/
 # Local cache (e.g. Ardot screenshots)
 .cache/
 # Prisma generated client

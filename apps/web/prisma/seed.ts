@@ -1,5 +1,11 @@
 import { PrismaClient } from "../src/generated/prisma/index.js";
 import bcrypt from "bcryptjs";
+import {
+  milestones,
+  projects,
+  skillCategories,
+} from "./portfolio-seed-data";
+import type { ProjectStatus } from "../src/generated/prisma/index.js";
 
 const prisma = new PrismaClient();
 
@@ -39,127 +45,47 @@ async function main() {
     create: { id: "default" },
   });
 
-  await prisma.skillCategory.deleteMany();
-  await prisma.skillCategory.create({
-    data: {
-      name: "前端开发",
-      color: "#3D8A5A",
-      order: 1,
-      skills: {
-        create: [
-          { name: "React", order: 1 },
-          { name: "Vue 3", order: 2 },
-          { name: "TypeScript", order: 3 },
-          { name: "Next.js", order: 4 },
-          { name: "CSS", order: 5 },
-          { name: "Tailwind", order: 6 },
-        ],
-      },
-    },
-  });
-  await prisma.skillCategory.create({
-    data: {
-      name: "后端开发",
-      color: "#D58A6A",
-      order: 2,
-      skills: {
-        create: [
-          { name: "Node.js", order: 1 },
-          { name: "Python", order: 2 },
-          { name: "Go", order: 3 },
-          { name: "PostgreSQL", order: 4 },
-        ],
-      },
-    },
-  });
-  await prisma.skillCategory.create({
-    data: {
-      name: "设计与运维",
-      color: "#4F8AAB",
-      order: 3,
-      skills: {
-        create: [
-          { name: "Figma", order: 1 },
-          { name: "UI/UX", order: 2 },
-          { name: "Docker", order: 3 },
-          { name: "K8s", order: 4 },
-          { name: "AWS", order: 5 },
-        ],
-      },
-    },
-  });
-
-  await prisma.project.deleteMany();
-  await prisma.project.createMany({
-    data: [
-      {
-        name: "AI 设计助手",
-        description: "基于大语言模型的智能UI设计生成与前端代码转换工具",
-        role: "技术负责人",
-        startDate: new Date("2024-03-01"),
-        endDate: null,
-        status: "ACTIVE",
-        accentColor: "#3D8A5A",
-        tags: ["Python", "LLM", "React"],
-      },
-      {
-        name: "在线教育直播系统",
-        description: "支持万人同时在线的互动直播课堂与学习管理系统",
-        role: "高级工程师",
-        startDate: new Date("2022-06-01"),
-        endDate: new Date("2024-02-01"),
-        status: "DONE",
-        accentColor: "#D58A6A",
-        tags: ["Vue 3", "Node.js"],
-      },
-      {
-        name: "智慧城市数据平台",
-        description: "城市级IoT数据采集与可视化分析平台，接入200+设备节点",
-        role: "全栈工程师",
-        startDate: new Date("2020-09-01"),
-        endDate: new Date("2022-05-01"),
-        status: "DONE",
-        accentColor: "#4F8AAB",
-        tags: ["Go", "React", "K8s"],
-      },
-      {
-        name: "电商平台重构",
-        description: "面向亿级流量的电商平台前端架构重构",
-        role: "前端工程师",
-        startDate: new Date("2018-07-01"),
-        endDate: new Date("2020-08-01"),
-        status: "DONE",
-        accentColor: "#D5A24A",
-        tags: ["React", "Webpack"],
-      },
-    ],
-  });
-
   await prisma.milestone.deleteMany();
-  await prisma.milestone.createMany({
-    data: [
-      {
-        title: "AI 设计助手立项",
-        description: "组建6人团队，确定产品方向与技术架构方案",
-        occurredAt: new Date("2024-03-01"),
+  await prisma.project.deleteMany();
+  await prisma.skill.deleteMany();
+  await prisma.skillCategory.deleteMany();
+
+  for (const project of projects) {
+    await prisma.project.create({
+      data: {
+        ...project,
+        status: project.status as ProjectStatus,
+        startDate: new Date(project.startDate),
+        endDate: project.endDate ? new Date(project.endDate) : null,
       },
-      {
-        title: "产品公测上线",
-        description: "完成核心功能开发，开放公测注册，首月获5000+用户",
-        occurredAt: new Date("2024-06-01"),
+    });
+  }
+
+  for (const milestone of milestones) {
+    await prisma.milestone.create({
+      data: {
+        ...milestone,
+        occurredAt: new Date(milestone.occurredAt),
       },
-      {
-        title: "直播系统上线",
-        description: "完成万人并发直播功能，系统可用性达99.95%",
-        occurredAt: new Date("2022-06-01"),
+    });
+  }
+
+  for (const [categoryIndex, category] of skillCategories.entries()) {
+    await prisma.skillCategory.create({
+      data: {
+        id: category.id,
+        name: category.name,
+        color: category.color,
+        order: categoryIndex,
+        skills: {
+          create: category.skills.map((skill, skillIndex) => ({
+            name: skill,
+            order: skillIndex,
+          })),
+        },
       },
-      {
-        title: "智慧城市平台交付",
-        description: "完成数据可视化大屏与监控模块开发，日处理数据500万+",
-        occurredAt: new Date("2020-09-01"),
-      },
-    ],
-  });
+    });
+  }
 
   await prisma.experience.deleteMany();
   await prisma.experience.createMany({
