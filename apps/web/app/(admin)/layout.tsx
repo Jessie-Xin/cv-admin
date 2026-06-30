@@ -1,5 +1,6 @@
 import { Sidebar } from "@/components/sidebar";
 import { SettingsBridge } from "@/components/settings-bridge";
+import { AiChatWidget } from "@/components/ai-chat-widget";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
@@ -31,6 +32,7 @@ export default async function AdminLayout({
       />
       <Sidebar userName={user?.name ?? user?.email ?? "管理员"} />
       <main className="flex-1 min-w-0">{children}</main>
+      <AiChatWidget />
     </div>
   );
 }

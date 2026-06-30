@@ -1,7 +1,16 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalEnv": ["DATABASE_URL", "NODE_ENV", "AUTH_SECRET", "DEBUG", "NEXT_PUBLIC_FRONTEND_URL"],
+  "globalEnv": [
+    "DATABASE_URL",
+    "NODE_ENV",
+    "AUTH_SECRET",
+    "DEBUG",
+    "NEXT_PUBLIC_FRONTEND_URL",
+    "AI_API_KEY",
+    "AI_BASE_URL",
+    "AI_MODEL"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
