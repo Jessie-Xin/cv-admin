@@ -1,23 +1,23 @@
 import { prisma } from "@/lib/prisma";
 
-export const SYSTEM_PROMPT = `你是一個簡歷管理系統的 AI 助手，可以幫用戶查詢、錄入、修改和刪除簡歷數據。
+export const SYSTEM_PROMPT = `你是一个简历管理系统的 AI 助手，可以帮用户查询、录入、修改和删除简历数据。
 
-數據模型：
-1. Profile（個人資料）：name, jobTitle, subtitle, email, phone, city, github, bio
-2. Project（項目）：name, description, role, startDate, endDate, status(ACTIVE/DONE), accentColor, tags[]
-3. Milestone（時間線）：title, description, occurredAt, projectId(可選)
-4. Experience（經歷）：title, organization, description, type(EDUCATION/WORK/CERTIFICATION), startDate, endDate
-5. SkillCategory（技能分類）：name, color, order
+数据模型：
+1. Profile（个人资料）：name, jobTitle, subtitle, email, phone, city, github, bio
+2. Project（项目）：name, description, role, startDate, endDate, status(ACTIVE/DONE), accentColor, tags[]
+3. Milestone（时间线）：title, description, occurredAt, projectId(可选)
+4. Experience（经历）：title, organization, description, type(EDUCATION/WORK/CERTIFICATION), startDate, endDate
+5. SkillCategory（技能分类）：name, color, order
 6. Skill（技能）：name, categoryId, order
-7. Setting（設置）：themeMode(LIGHT/DARK), accentColor, defaultExportFormat(PDF/HTML/MARKDOWN), publicShareEnabled
-8. ShareToken（分享連結）：label, expiresAt
+7. Setting（设置）：themeMode(LIGHT/DARK), accentColor, defaultExportFormat(PDF/HTML/MARKDOWN), publicShareEnabled
+8. ShareToken（分享链接）：label, expiresAt
 
-規則：
-- 使用繁體中文回覆
-- 日期格式為 YYYY-MM-DD
-- 刪除操作前先用文字確認意圖
-- 回覆簡潔明瞭，列出操作結果
-- 創建技能(Skill)前需先列出技能分類獲取 categoryId`;
+规则：
+- 始终使用简体中文回复
+- 日期格式为 YYYY-MM-DD
+- 删除操作前先用文字确认意图
+- 回复简洁明了，列出操作结果
+- 创建技能(Skill)前需先列出技能分类获取 categoryId`;
 
 type ToolDef = {
   type: "function";
@@ -31,7 +31,7 @@ type ToolDef = {
 function tool(
   name: string,
   description: string,
-  parameters: Record<string, unknown>,
+  parameters: Record<string, unknown>
 ): ToolDef {
   return { type: "function", function: { name, description, parameters } };
 }
@@ -62,9 +62,17 @@ export const aiTools: ToolDef[] = [
       role: { type: "string", description: "擔任角色" },
       startDate: { type: "string", description: "開始日期 YYYY-MM-DD" },
       endDate: { type: "string", description: "結束日期 YYYY-MM-DD（可選）" },
-      status: { type: "string", enum: ["ACTIVE", "DONE"], description: "項目狀態，預設 ACTIVE" },
+      status: {
+        type: "string",
+        enum: ["ACTIVE", "DONE"],
+        description: "項目狀態，預設 ACTIVE",
+      },
       accentColor: { type: "string", description: "主題色（十六進制）" },
-      tags: { type: "array", items: { type: "string" }, description: "技術標籤" },
+      tags: {
+        type: "array",
+        items: { type: "string" },
+        description: "技術標籤",
+      },
     },
     required: ["name", "description", "role", "startDate"],
   }),
@@ -89,7 +97,10 @@ export const aiTools: ToolDef[] = [
     required: ["id"],
   }),
   // Milestones
-  tool("list_milestones", "列出所有時間線條目", { type: "object", properties: {} }),
+  tool("list_milestones", "列出所有時間線條目", {
+    type: "object",
+    properties: {},
+  }),
   tool("create_milestone", "創建時間線條目", {
     type: "object",
     properties: {
@@ -108,7 +119,11 @@ export const aiTools: ToolDef[] = [
       title: { type: "string", description: "標題" },
       organization: { type: "string", description: "機構名稱" },
       description: { type: "string", description: "描述" },
-      type: { type: "string", enum: ["EDUCATION", "WORK", "CERTIFICATION"], description: "經歷類型" },
+      type: {
+        type: "string",
+        enum: ["EDUCATION", "WORK", "CERTIFICATION"],
+        description: "經歷類型",
+      },
       startDate: { type: "string", description: "開始日期 YYYY-MM-DD" },
       endDate: { type: "string", description: "結束日期 YYYY-MM-DD（可選）" },
     },
@@ -133,7 +148,10 @@ export const aiTools: ToolDef[] = [
     required: ["id"],
   }),
   // Skills
-  tool("list_skill_categories", "列出所有技能分類及其技能", { type: "object", properties: {} }),
+  tool("list_skill_categories", "列出所有技能分類及其技能", {
+    type: "object",
+    properties: {},
+  }),
   tool("create_skill_category", "創建技能分類", {
     type: "object",
     properties: {
@@ -164,12 +182,18 @@ export const aiTools: ToolDef[] = [
     properties: {
       themeMode: { type: "string", enum: ["LIGHT", "DARK"] },
       accentColor: { type: "string", description: "十六進制顏色" },
-      defaultExportFormat: { type: "string", enum: ["PDF", "HTML", "MARKDOWN"] },
+      defaultExportFormat: {
+        type: "string",
+        enum: ["PDF", "HTML", "MARKDOWN"],
+      },
       publicShareEnabled: { type: "boolean" },
     },
   }),
   // Share Tokens
-  tool("list_share_tokens", "列出所有分享連結", { type: "object", properties: {} }),
+  tool("list_share_tokens", "列出所有分享連結", {
+    type: "object",
+    properties: {},
+  }),
   tool("create_share_token", "創建分享連結", {
     type: "object",
     properties: {
@@ -187,17 +211,21 @@ export const aiTools: ToolDef[] = [
 
 export async function executeTool(
   name: string,
-  args: Record<string, unknown>,
+  args: Record<string, unknown>
 ): Promise<string> {
   try {
     switch (name) {
       // Profile
       case "get_profile": {
-        const profile = await prisma.profile.findFirst({ orderBy: { createdAt: "asc" } });
+        const profile = await prisma.profile.findFirst({
+          orderBy: { createdAt: "asc" },
+        });
         return JSON.stringify(profile);
       }
       case "update_profile": {
-        const existing = await prisma.profile.findFirst({ orderBy: { createdAt: "asc" } });
+        const existing = await prisma.profile.findFirst({
+          orderBy: { createdAt: "asc" },
+        });
         if (!existing) return JSON.stringify({ error: "Profile 不存在" });
         const updated = await prisma.profile.update({
           where: { id: existing.id },
@@ -216,7 +244,9 @@ export async function executeTool(
       }
       // Projects
       case "list_projects": {
-        const projects = await prisma.project.findMany({ orderBy: { startDate: "desc" } });
+        const projects = await prisma.project.findMany({
+          orderBy: { startDate: "desc" },
+        });
         return JSON.stringify(projects);
       }
       case "create_project": {
@@ -239,12 +269,18 @@ export async function executeTool(
         if (args.name !== undefined) data.name = args.name;
         if (args.description !== undefined) data.description = args.description;
         if (args.role !== undefined) data.role = args.role;
-        if (args.startDate !== undefined) data.startDate = new Date(args.startDate as string);
-        if (args.endDate !== undefined) data.endDate = args.endDate ? new Date(args.endDate as string) : null;
+        if (args.startDate !== undefined)
+          data.startDate = new Date(args.startDate as string);
+        if (args.endDate !== undefined)
+          data.endDate = args.endDate ? new Date(args.endDate as string) : null;
         if (args.status !== undefined) data.status = args.status;
         if (args.accentColor !== undefined) data.accentColor = args.accentColor;
-        if (args.tags !== undefined) data.tags = Array.isArray(args.tags) ? args.tags : [];
-        const updated = await prisma.project.update({ where: { id: args.id as string }, data });
+        if (args.tags !== undefined)
+          data.tags = Array.isArray(args.tags) ? args.tags : [];
+        const updated = await prisma.project.update({
+          where: { id: args.id as string },
+          data,
+        });
         return JSON.stringify(updated);
       }
       case "delete_project": {
@@ -253,7 +289,9 @@ export async function executeTool(
       }
       // Milestones
       case "list_milestones": {
-        const milestones = await prisma.milestone.findMany({ orderBy: { occurredAt: "desc" } });
+        const milestones = await prisma.milestone.findMany({
+          orderBy: { occurredAt: "desc" },
+        });
         return JSON.stringify(milestones);
       }
       case "create_milestone": {
@@ -269,7 +307,9 @@ export async function executeTool(
       }
       // Experiences
       case "list_experiences": {
-        const items = await prisma.experience.findMany({ orderBy: { startDate: "desc" } });
+        const items = await prisma.experience.findMany({
+          orderBy: { startDate: "desc" },
+        });
         return JSON.stringify(items);
       }
       case "create_experience": {
@@ -288,12 +328,18 @@ export async function executeTool(
       case "update_experience": {
         const data: Record<string, unknown> = {};
         if (args.title !== undefined) data.title = args.title;
-        if (args.organization !== undefined) data.organization = args.organization;
+        if (args.organization !== undefined)
+          data.organization = args.organization;
         if (args.description !== undefined) data.description = args.description;
         if (args.type !== undefined) data.type = args.type;
-        if (args.startDate !== undefined) data.startDate = new Date(args.startDate as string);
-        if (args.endDate !== undefined) data.endDate = args.endDate ? new Date(args.endDate as string) : null;
-        const updated = await prisma.experience.update({ where: { id: args.id as string }, data });
+        if (args.startDate !== undefined)
+          data.startDate = new Date(args.startDate as string);
+        if (args.endDate !== undefined)
+          data.endDate = args.endDate ? new Date(args.endDate as string) : null;
+        const updated = await prisma.experience.update({
+          where: { id: args.id as string },
+          data,
+        });
         return JSON.stringify(updated);
       }
       case "delete_experience": {
@@ -345,14 +391,21 @@ export async function executeTool(
         const data: Record<string, unknown> = {};
         if (args.themeMode !== undefined) data.themeMode = args.themeMode;
         if (args.accentColor !== undefined) data.accentColor = args.accentColor;
-        if (args.defaultExportFormat !== undefined) data.defaultExportFormat = args.defaultExportFormat;
-        if (args.publicShareEnabled !== undefined) data.publicShareEnabled = args.publicShareEnabled;
-        const updated = await prisma.setting.update({ where: { id: "default" }, data });
+        if (args.defaultExportFormat !== undefined)
+          data.defaultExportFormat = args.defaultExportFormat;
+        if (args.publicShareEnabled !== undefined)
+          data.publicShareEnabled = args.publicShareEnabled;
+        const updated = await prisma.setting.update({
+          where: { id: "default" },
+          data,
+        });
         return JSON.stringify(updated);
       }
       // Share Tokens
       case "list_share_tokens": {
-        const tokens = await prisma.shareToken.findMany({ orderBy: { createdAt: "desc" } });
+        const tokens = await prisma.shareToken.findMany({
+          orderBy: { createdAt: "desc" },
+        });
         return JSON.stringify(tokens);
       }
       case "create_share_token": {

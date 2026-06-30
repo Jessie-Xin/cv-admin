@@ -29,6 +29,7 @@ export async function PUT(req: Request) {
       city: body.city ?? null,
       github: body.github ?? null,
       bio: body.bio ?? null,
+      avatarUrl: body.avatarUrl ?? null,
     },
   });
   return NextResponse.json(updated);
